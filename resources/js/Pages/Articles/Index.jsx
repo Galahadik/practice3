@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import React from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 
@@ -55,6 +56,7 @@ export default function Index({ articles }) {
                         <th className="p-3 text-left">ID</th>
                         <th className="p-3 text-left">Заголовок</th>
                         <th className="p-3 text-left">Статус</th>
+						<th className="p-3 text-right">Дії</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +65,18 @@ export default function Index({ articles }) {
                             <td className="p-3">{article.id}</td>
                             <td className="p-3">{article.title}</td>
                             <td className="p-3">{article.is_published ? '✅' : '⏳'}</td>
+							<td className="p-3 text-right">
+    <button 
+        onClick={() => {
+            if (confirm('Ви впевнені, що хочете видалити цю статтю?')) {
+                router.delete(route('articles.destroy', article.id));
+            }
+        }}
+        className="text-red-500 hover:underline"
+    >
+        Видалити
+    </button>
+</td>
                         </tr>
                     ))}
                 </tbody>
